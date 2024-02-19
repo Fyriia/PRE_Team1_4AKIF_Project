@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket On Track Registrierung</title>
+</head>
+<body>
+
+<h2>Willkommen bei Ticket On Track</h2>
+
+<form action="./php/sendVerificationMail.php" method="post">
+  <label for="email">Email:</label>
+  <input id="email" type="email" name="email" required>
+
+  <label for="password">Passwort:</label>
+  <input id="password" type="password" name="password" required>
+
+  <button id="register-button" type="submit" value="Register">Registrieren</button>
+
+  <br>
+
+  <a href="html/login.html">Schon registriert? Hier geht's zur Anmeldung</a>
+</form>
+
+</body>
+</html>
