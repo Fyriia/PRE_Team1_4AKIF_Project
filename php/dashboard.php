@@ -1,3 +1,19 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../App ToT MockUps/ticket6.png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Ticket On Track Dashboard</title>
+</head>
+<body>
+<h1>Ticket On Track</h1>
+<img alt="cartoon graphic of a train and tickets" src="../App ToT MockUps/Train with tickets_upscayl_4x_ultrasharp.png">
+<h2>Klimaticket Hinzufügen</h2>
 <?php
 session_start();
 
@@ -39,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("i", $ka_id);
             if ($stmt->execute()) {
-                echo "Ticket added successfully.";
+                echo "Ticket erfolgreich hinzugefügt.";
 
                 // Retrieve the ID of the recently inserted ticket
                 $kt_id = $stmt->insert_id;
@@ -51,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                     $update_stmt = $conn->prepare($update_sql);
                     $update_stmt->bind_param("ii", $kt_id, $user_id);
                     if ($update_stmt->execute()) {
-                        echo "User ticket ID updated successfully.";
+                        echo "";
                     } else {
                         echo "Error updating user ticket ID: " . $conn->error;
                     }
@@ -90,7 +106,7 @@ if ($result->num_rows > 0) {
     echo '</select>';
 
     // Submit button
-    echo '<input type="submit" name="submit" value="Add Ticket">';
+    echo '<input type="submit" name="submit" value="Ticket hinzufügen">';
 
     // End form
     echo '</form>';
@@ -98,21 +114,37 @@ if ($result->num_rows > 0) {
     echo "No ticket types found";
 }
 
+
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $sql = "SELECT KA_Bez FROM Klimaticket_Art 
+            INNER JOIN Klimaticket ON Klimaticket_Art.KA_ID = Klimaticket.KT_KlimaticketArtID
+            INNER JOIN Kunde ON Klimaticket.KT_ID = Kunde.K_KlimaticketID
+            WHERE K_ID = $user_id";
+    $result = $conn->query($sql); // No need for prepared statement since there are no placeholders
+
+    if ($result) {
+        if ($result->num_rows > 0) {
+            echo "<h2>Bereits hinzugefügte Tickets</h2>";
+            echo "<ul>";
+            while ($row = $result->fetch_assoc()) {
+                echo "<li>" . $row['KA_Bez'] . "</li>";
+            }
+            echo "</ul>";
+        } else {
+            echo "No tickets added yet.";
+        }
+    } else {
+        echo "Error: " . $conn->error;
+    }
+} else {
+    echo "User ID not found in session.";
+}
 // Close connection
 $conn->close();
 ?>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="../App ToT MockUps/ticket6.png">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <title>Ticket On Track Dashboard</title>
-</head>
-<body>
+
+
 
 </body>
 </html>

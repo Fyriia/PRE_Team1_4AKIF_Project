@@ -1,0 +1,101 @@
+:root {
+  --input_bg_color: #163D5E;
+}
+
+html {
+  background-color: #66AFD0;
+  color: white;
+  font-family:Work Sans, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family:Work Sans, sans-serif;
+
+}
+
+h1 {
+  text-align: center;
+  margin-bottom:50px;
+  font-size: 50px;
+}
+
+input[type="email"],
+input[type="password"]{
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  text-align: left;
+  margin-top: 20px; /* Add some spacing below the "Login" text */
+  background-color: var(--input_bg_color)
+}
+
+
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+button:focus {
+  background-color: white;
+
+}
+
+button {
+  padding:5px;
+  background: white ; /* Darker pastel blue for button */
+  color:#66AFD0;
+  font-weight: bold;
+  font-size: 35px;
+  cursor: pointer;
+  transition: color 0.3s; /* Add transition effect for smoother color change */
+  text-align: center;
+  border-radius: 10px;
+  width: 300px;
+  margin: 25px 0 25px 0;
+
+}
+
+label {
+  text-align: center;
+}
+
+a {
+  color: #ffffff; /* Darker pastel blue for link */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+   width: 500px;
+   z-index: -99;
+ }
+
+div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+form {
+  width: 30vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+::placeholder {
+  opacity: 1;
+  font-size: 2rem;
+  font-family: Work Sans, sans-serif;
+  color: white;
+}
+input[type="password"]::placeholder {
+  color: white;
+}

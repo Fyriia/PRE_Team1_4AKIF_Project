@@ -1,8 +1,4 @@
-# 34AKIF_Sigma_LoginWithVerificationMail_SchwalmBelegratisWiesingerZver
-Login with verification Mail
+# 4AKIF Team 1 PRE Project
+Login with verification Mail - Code sourced from https://github.com/3AKIF-Sigma/34AKIF_Sigma_LoginWithVerificationMail_SchwalmBelegratisWiesingerZver
 
-You have to make some changes in the php/sendVerificationMail.php file due to the fact that you have to use your own email address.
-It should be the same email address you use on your Mercury Server on XAMPP. 
-This video helped me changing the settings for the Mercury Server on XAMPP: https://youtu.be/4TmD4ly7V_E?si=b6G366Eq9c8RUpaA
-
-Aside from that you have to change the variables which are responsible for the database connection to your own database settings in every '*.php' file.
+Added code in dashboard.php which adds a dropdown menu populated by values from your database and adds a selected item from the dropdown list to a different table in your database.
