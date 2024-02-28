@@ -4,24 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ticket On Track Registrierung</title>
+  <link rel="icon" type="image/x-icon" href="App ToT MockUps/ticket6.png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 </head>
 <body>
+  <h1>Ticket On Track</h1>
+  <div>
+  <img src="App ToT MockUps/Train with tickets_upscayl_4x_ultrasharp.png">
+  <form action="./php/sendVerificationMail.php" method="post">
+  <label for="email"></label>
+  <input id="email" type="email" name="email" placeholder="Email" required>
 
-<h2>Willkommen bei Ticket On Track</h2>
+  <label for="password"></label>
+  <input id="password" type="email" name="password" placeholder="Passwort" required>
 
-<form action="./php/sendVerificationMail.php" method="post">
-  <label for="email">Email:</label>
-  <input id="email" type="email" name="email" required>
-
-  <label for="password">Passwort:</label>
-  <input id="password" type="password" name="password" required>
-
-  <button id="register-button" type="submit" value="Register">Registrieren</button>
+  <button class="register-button" id="register-button" type="submit" value="Register">Registrieren</button>
 
   <br>
-
   <a href="html/login.html">Schon registriert? Hier geht's zur Anmeldung</a>
 </form>
+  </div>
 
 </body>
 </html>

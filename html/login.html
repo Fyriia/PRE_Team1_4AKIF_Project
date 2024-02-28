@@ -3,21 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Login</title>
+  <link rel="icon" type="image/x-icon" href="../App ToT MockUps/ticket6.png">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <title>Ticket On Track Login</title>
 </head>
 <body>
+<h1>Ticket On Track</h1>
+<div>
+  <img src="../App ToT MockUps/Train with tickets_upscayl_4x_ultrasharp.png">
+  <form action="../php/login.php" method="post">
+    <label for="email"></label>
+    <input id="email" type="email" name="email" placeholder="Email" required>
 
-<h2>Willkommen zurück</h2>
+    <label for="password"></label>
+    <input type="password" id="password" name="password" style="display: none;">
+    <input type="password" id="passwordInput" placeholder="Enter your password" oninput="updatePassword()">
+    <br>
 
-<form action="../php/login.php" method="post">
-  <label for="email">Email:</label>
-  <input id="email" type="text" name="email" required>
+    <button class="login-button" id="login-button" type="submit" value="Login">Login</button>
 
-  <label for="password">Passwort:</label>
-  <input id="password" type="password" name="password" required>
-
-  <input type="submit" value="Login">
-</form>
-
+    <br>
+    <a href="../index.html">Noch nicht registriert? Hier geht's los</a>
+  </form>
+</div>
+<script>
+  function updatePassword() {
+    // Get the value from the visible input field
+    let visiblePassword = document.getElementById("passwordInput").value;
+    // Get the hidden input field
+    let hiddenPassword = document.getElementById("password");
+    // Set the value of the hidden input field to the value of the visible input field
+    hiddenPassword.value = visiblePassword;
+  }
+</script>
 </body>
 </html>
