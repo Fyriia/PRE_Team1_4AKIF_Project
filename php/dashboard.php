@@ -12,6 +12,37 @@
 </head>
 <body>
 <h1>Ticket On Track</h1>
+
+
+
+<main id="dashboard">
+<div id="fahrtsuchen" >
+    <label>
+        <input type="search" id="fahrtsuchen_suchbox">
+    </label>
+
+    <label>
+        <input type="search" id="fahrtsuchen_suchbox">
+    </label>
+    <input type="datetime-local">
+</div>
+
+    <div id="MapMockup">
+        <img src="" alt="working map">
+    </div>
+    <div id="submit">
+        <label>
+        <button id="submit_button">
+            Fahrt Starten
+        </button>
+        </label>
+    </div>
+</main>
+
+
+
+
+
 <img alt="cartoon graphic of a train and tickets" src="../App ToT MockUps/Train with tickets_upscayl_4x_ultrasharp.png">
 <h2>Klimaticket Hinzufügen</h2>
 <?php
@@ -143,6 +174,7 @@ if (isset($_SESSION['user_id'])) {
 // Close connection
 $conn->close();
 ?>
+
 
 
 
