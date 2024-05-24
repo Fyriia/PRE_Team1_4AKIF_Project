@@ -3,6 +3,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="../App ToT MockUps/ticket6.png">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUWq0LFNX3NBlA-BbBBlvl1HfZYkv0pNc&callback=initMap" async defer></script>
+    <script async defer>
+        // Initialize and add the map
+        function initMap() {
+            // The location of Vienna
+            var vienna = {lat: 48.2082, lng: 16.3738};
+            // The map, centered at Vienna
+            var map = new google.maps.Map(
+                document.getElementById('map'), {zoom: 10, center: vienna});
+            // The marker, positioned at Vienna
+            var marker = new google.maps.Marker({position: vienna, map: map});
+        }
+    </script>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,8 +45,7 @@
 
 </div>
 
-    <div id="MapMockup">
-        <img src="../App ToT MockUps/istockphoto-1160934392-1024x1024.jpg" alt="working map">
+    <div id="map">
     </div>
     <div id="submit">
         <label>
