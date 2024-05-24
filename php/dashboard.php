@@ -13,22 +13,27 @@
 <body>
 <h1>Ticket On Track</h1>
 
-
+<div id="options">
+    <button type="button" id="options_button" >
+       <a href="options.php"> <img src="../App%20ToT%20MockUps/options_icon.png"></a>
+    </button>
 
 <main id="dashboard">
-<div id="fahrtsuchen" >
-    <label>
+<div id="fahrtsuchen">
+    <label> Start:
         <input type="search" id="fahrtsuchen_suchbox">
     </label>
 
-    <label>
+    <label> Ziel:
         <input type="search" id="fahrtsuchen_suchbox">
     </label>
-    <input type="datetime-local">
+
+    <input type="datetime-local" id="TimeChooser">
+
 </div>
 
     <div id="MapMockup">
-        <img src="" alt="working map">
+        <img src="../App ToT MockUps/istockphoto-1160934392-1024x1024.jpg" alt="working map">
     </div>
     <div id="submit">
         <label>
