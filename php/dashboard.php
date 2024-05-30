@@ -1,21 +1,10 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="../App ToT MockUps/ticket6.png">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUWq0LFNX3NBlA-BbBBlvl1HfZYkv0pNc&callback=initMap" async defer></script>
-    <script async defer>
-        // Initialize and add the map
-        function initMap() {
-            // The location of Vienna
-            var vienna = {lat: 48.2082, lng: 16.3738};
-            // The map, centered at Vienna
-            var map = new google.maps.Map(
-                document.getElementById('map'), {zoom: 10, center: vienna});
-            // The marker, positioned at Vienna
-            var marker = new google.maps.Marker({position: vienna, map: map});
-        }
-    </script>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,46 +13,41 @@
     <title>Ticket On Track Dashboard</title>
 </head>
 <body>
-<h1>Ticket On Track</h1>
-
 <div id="options">
-    <button type="button" id="options_button" >
-       <a href="options.php"> <img src="../App%20ToT%20MockUps/options_icon.png"></a>
-    </button>
-
-<main id="dashboard">
-<div id="fahrtsuchen">
-    <label> Start:
-        <input type="search" id="fahrtsuchen_suchbox">
-    </label>
-
-    <label> Ziel:
-        <input type="search" id="fahrtsuchen_suchbox">
-    </label>
-
-    <input type="datetime-local" id="TimeChooser">
-
+    <a href="options.php" style="margin-left: 1200px; margin-top: 30px"> <img height="40px" width="40px" src="../App%20ToT%20MockUps/settings-svgrepo-com.svg"></a>
+    <a style="margin-top: 10px; margin-left: 1200px" href="logoutScript.php"><img src="../App%20ToT%20MockUps/logout-svgrepo-com.svg" width="30px" height="30px"></a>
 </div>
-
-    <div id="map">
-    </div>
-    <div id="submit">
-        <label>
-        <button id="submit_button">
-            Fahrt Starten
-        </button>
+<img style="margin: 0; padding: 0; width: 160px" alt="cartoon graphic of a train and tickets" src="../App ToT MockUps/Train with tickets_upscayl_4x_ultrasharp.png">
+<h1 style="margin: 0; padding: 0">Ticket On Track</h1>
+<main style="margin: 0; padding: 0" id="dashboard">
+    <div style="margin: 0; padding: 0" id="fahrtsuchen">
+        <label style="margin: 4px; padding: 0">Start:
+            <input list="bezeichnungenStart" id="bezeichnungStart" name="bezeichnungStart">
+            <datalist id="bezeichnungenStart"></datalist>
         </label>
+
+        <label style="margin: 4px; padding: 0">Ziel:
+            <input list="bezeichnungenZiel" id="bezeichnungZiel" name="bezeichnungZiel">
+            <datalist id="bezeichnungenZiel"></datalist>
+        </label>
+
+        <input style="margin: 5px 0 10px 20px; padding: 0" type="datetime-local" id="TimeChooser">
+    </div>
+
+    <div style="margin-left: 50px" id="map" style="height: 500px; width: 100%;"></div>
+    <div id="submit">
+        <button id="submit_button">Fahrt Starten</button>
     </div>
 </main>
 
-
-
-
-
-<img alt="cartoon graphic of a train and tickets" src="../App ToT MockUps/Train with tickets_upscayl_4x_ultrasharp.png">
 <h2>Klimaticket Hinzufügen</h2>
 <?php
 session_start();
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login page if user is not logged in
+    header("Location: ../html/login.html");
+    exit();
+}
 
 // Database connection parameters
 $host = "localhost";
@@ -162,13 +146,12 @@ if ($result->num_rows > 0) {
     echo "No ticket types found";
 }
 
-
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     $sql = "SELECT KA_Bez FROM Klimaticket_Art 
-            INNER JOIN Klimaticket ON Klimaticket_Art.KA_ID = Klimaticket.KT_KlimaticketArtID
-            INNER JOIN Kunde ON Klimaticket.KT_ID = Kunde.K_KlimaticketID
-            WHERE K_ID = $user_id";
+        INNER JOIN Klimaticket ON Klimaticket_Art.KA_ID = Klimaticket.KT_KlimaticketArtID
+        INNER JOIN Kunde ON Klimaticket.KT_ID = Kunde.K_KlimaticketID
+        WHERE K_ID = $user_id";
     $result = $conn->query($sql); // No need for prepared statement since there are no placeholders
 
     if ($result) {
@@ -192,8 +175,73 @@ if (isset($_SESSION['user_id'])) {
 $conn->close();
 ?>
 
+<script>
+    let map;
+    let marker;
 
+    // Initialize and add the map
+    function initMap() {
+        // The location of Vienna
+        let vienna = {lat: 48.2082, lng: 16.3738};
+        // The map, centered at Vienna
+        map = new google.maps.Map(document.getElementById('map'), {zoom: 10, center: vienna});
+        // The marker, positioned at Vienna
+        marker = new google.maps.Marker({position: vienna, map: map});
+    }
 
+    // Function to fetch data from PHP script and populate datalist
+    function populateDatalist() {
+        fetch('fetch_bezeichnungen_longlat.php')
+            .then(response => response.json())
+            .then(data => {
+                let datalistStart = document.getElementById('bezeichnungenStart');
+                let datalistZiel = document.getElementById('bezeichnungenZiel');
+
+                data.forEach(item => {
+                    let optionStart = document.createElement('option');
+                    optionStart.value = item.bezeichnung;
+                    optionStart.setAttribute('data-latLong', item.latLong);
+                    datalistStart.appendChild(optionStart);
+
+                    let optionZiel = document.createElement('option');
+                    optionZiel.value = item.bezeichnung;
+                    optionZiel.setAttribute('data-latLong', item.latLong);
+                    datalistZiel.appendChild(optionZiel);
+                });
+
+                // Add event listener for datalist selection
+                document.getElementById('bezeichnungStart').addEventListener('input', function(e) {
+                    let selectedOption = Array.from(datalistStart.options).find(option => option.value === e.target.value);
+                    if (selectedOption) {
+                        let latLongString = selectedOption.getAttribute('data-latLong');
+                        let latLong = JSON.parse(latLongString.replace(/lat/g, '"lat"').replace(/lng/g, '"lng"'));
+                        let position = {lat: parseFloat(latLong.lat), lng: parseFloat(latLong.lng)};
+                        marker.setPosition(position);
+                        map.setCenter(position);
+                        map.setZoom(15); // Adjust zoom level here
+                    }
+                });
+
+                document.getElementById('bezeichnungZiel').addEventListener('input', function(e) {
+                    let selectedOption = Array.from(datalistZiel.options).find(option => option.value === e.target.value);
+                    if (selectedOption) {
+                        let latLongString = selectedOption.getAttribute('data-latLong');
+                        let latLong = JSON.parse(latLongString.replace(/lat/g, '"lat"').replace(/lng/g, '"lng"'));
+                        let position = {lat: parseFloat(latLong.lat), lng: parseFloat(latLong.lng)};
+                        marker.setPosition(position);
+                        map.setCenter(position);
+                        map.setZoom(15); // Adjust zoom level here
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
+
+    // Call the function when the page loads
+    window.onload = populateDatalist;
+</script>
 
 </body>
 </html>

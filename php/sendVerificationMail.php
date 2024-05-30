@@ -47,7 +47,7 @@ if ($mysqli->query($sql) === TRUE) {
   $mail->addAddress($email);
   $mail->isHTML(true);
   $mail->Subject = 'Email Verification';
-  $mail->Body    = 'Please click the following link to verify your email address: <a href="http://localhost/34AKIF_Sigma_LoginWithVerificationMail_SchwalmBelegratisWiesingerZver-main/php/verify.php?token='.$token.'">Verify Email</a>'; // change the '.../' part to the local path on your computer so you reach the php/verify.php file
+  $mail->Body    = 'Please click the following link to verify your email address: <a href="http://localhost/PRE_Team1_4AKIF_Project\php\verify.php?token='.$token.'">Verify Email</a>'; // change the '.../' part to the local path on your computer so you reach the php/verify.php file
 
   // Enable debugging
   $mail->SMTPDebug = SMTP::DEBUG_SERVER;

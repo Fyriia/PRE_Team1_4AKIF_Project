@@ -22,6 +22,7 @@
         <input type="text" id="input_addresse">
     <label for="input_verbrauch"> Spritverbrauch Privatauto </label>
         <input type="number" id="input_verbrauch">
+
 </div>
 
 
@@ -35,6 +36,11 @@
         Account löschen
     </button>
 </div>
+
+fahrten anzeigen
+
+account löschen
+
 
 </body>
 

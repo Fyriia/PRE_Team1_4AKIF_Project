@@ -40,11 +40,10 @@ h1 {
     max-height: 0;
     max-width: 0;
 }
-#options_button {
+#options_button{
     position: absolute;
     right: 15px;
     top: 15px;
-    scale: 15%;
 }
 #TimeChooser {
     margin: 5%;
